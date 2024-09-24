@@ -44,8 +44,11 @@ public class BookController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<String> updateBook(@PathVariable(value = "id") int id) {
-        return new ResponseEntity<>("Book with id: " + id + " successfully updated", HttpStatus.CREATED);
+    public ResponseEntity<ApiResponse<BookDto>> updateBook(@PathVariable(value = "id") int id, @RequestBody BookDto bookDto) {
+        BookDto updatedBookDto = BookMapper.mapToDto(bookService.updateBook(id, bookDto));
+        ApiResponse<BookDto> response = new ApiResponse<>(SUCCESS.toString(), updatedBookDto);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")

@@ -37,7 +37,20 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBookById(int id) {
-        BookEntity book = bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        BookEntity book = getBookById(id);
         bookRepository.delete(book);
+    }
+
+    @Override
+    public BookEntity updateBook(int id, BookDto bookDto) {
+        BookEntity book = getBookById(id);
+        book.setTitle(bookDto.getTitle());
+        book.setAuthor(bookDto.getAuthor());
+        book.setReleaseYear(bookDto.getReleaseYear());
+        book.setPrice(bookDto.getPrice());
+
+        BookEntity updatedBook = bookRepository.save(book);
+
+        return updatedBook;
     }
 }
