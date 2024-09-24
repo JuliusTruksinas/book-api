@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class PaginatedApiResponse<T> {
-    private ApiResponseStatus status;
+    private String status;
     private List<T> data;
     private int currentPage;
     private int pageSize;
