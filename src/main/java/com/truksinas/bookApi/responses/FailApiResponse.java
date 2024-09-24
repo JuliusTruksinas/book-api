@@ -8,6 +8,6 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 public class FailApiResponse {
-    private ApiResponseStatus status;
+    private String status;
     private Map<String, String> data;
 }

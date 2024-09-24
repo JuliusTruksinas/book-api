@@ -1,5 +1,7 @@
 package com.truksinas.bookApi.controllers;
 
+import com.truksinas.bookApi.dtos.BookDto;
+import com.truksinas.bookApi.responses.ApiResponse;
 import com.truksinas.bookApi.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,8 +30,8 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createBook() {
-        return new ResponseEntity<>("Book created", HttpStatus.CREATED);
+    public ResponseEntity<ApiResponse<BookDto>> createBook(@RequestBody BookDto bookDto) {
+        return new ResponseEntity<>(bookService.createBook(bookDto), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
