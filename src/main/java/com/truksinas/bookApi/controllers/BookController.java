@@ -25,8 +25,8 @@ public class BookController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<String> getBook(@PathVariable(value = "id") int id) {
-        return new ResponseEntity<>("Book with id: " + id, HttpStatus.OK);
+    public ResponseEntity<ApiResponse<BookDto>> getBook(@PathVariable(value = "id") int id) {
+        return new ResponseEntity<>(bookService.getBookById(id), HttpStatus.OK);
     }
 
     @PostMapping
