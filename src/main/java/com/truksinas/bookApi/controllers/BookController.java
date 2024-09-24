@@ -3,10 +3,13 @@ package com.truksinas.bookApi.controllers;
 import com.truksinas.bookApi.dtos.BookDto;
 import com.truksinas.bookApi.responses.ApiResponse;
 import com.truksinas.bookApi.services.BookService;
+import com.truksinas.bookApi.utils.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.truksinas.bookApi.responses.ApiResponseStatus.*;
 
 @RestController
 @RequestMapping("/books")
@@ -26,12 +29,18 @@ public class BookController {
 
     @GetMapping("{id}")
     public ResponseEntity<ApiResponse<BookDto>> getBook(@PathVariable(value = "id") int id) {
-        return new ResponseEntity<>(bookService.getBookById(id), HttpStatus.OK);
+        BookDto bookDto = BookMapper.mapToDto(bookService.getBookById(id));
+        ApiResponse<BookDto> response = new ApiResponse<>(SUCCESS.toString(), bookDto);
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
     public ResponseEntity<ApiResponse<BookDto>> createBook(@RequestBody BookDto bookDto) {
-        return new ResponseEntity<>(bookService.createBook(bookDto), HttpStatus.CREATED);
+        BookDto createdBookDto = BookMapper.mapToDto(bookService.createBook(bookDto));
+        ApiResponse<BookDto> response = new ApiResponse<>(SUCCESS.toString(), createdBookDto);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
@@ -40,7 +49,10 @@ public class BookController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable(value = "id") int id) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<ApiResponse<Void>> deleteBook(@PathVariable(value = "id") int id) {
+        bookService.deleteBookById(id);
+        ApiResponse<Void> response = new ApiResponse<>(SUCCESS.toString(), null);
+
+        return ResponseEntity.ok(response);
     }
 }
