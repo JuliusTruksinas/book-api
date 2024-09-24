@@ -29,8 +29,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorApiResponse> handleInternalServerErrors(RuntimeException exception, WebRequest request) {
-        System.out.println(exception.getMessage());
-        ErrorApiResponse response = new ErrorApiResponse(ERROR.toString(), "Internal server error");
+        ErrorApiResponse response = new ErrorApiResponse(ERROR.toString(), exception.getMessage());
 
         return new ResponseEntity<ErrorApiResponse>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
