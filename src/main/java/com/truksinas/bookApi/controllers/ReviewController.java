@@ -1,11 +1,21 @@
 package com.truksinas.bookApi.controllers;
 
+import com.truksinas.bookApi.services.ReviewService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ReviewController {
+
+    private ReviewService reviewService;
+
+    @Autowired
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
+
     @GetMapping("/books/{bookId}/reviews")
     public ResponseEntity<String> getBookReviews(@PathVariable(value = "bookId") int bookId) {
         return new ResponseEntity<>("All reviews for Book with id: " + bookId, HttpStatus.OK);

@@ -1,5 +1,7 @@
 package com.truksinas.bookApi.controllers;
 
+import com.truksinas.bookApi.services.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +9,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/books")
 public class BookController {
+
+    private BookService bookService;
+
+    @Autowired
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
     @GetMapping()
     public ResponseEntity<String> getBooks() {
         return new ResponseEntity<>("All books", HttpStatus.OK);
