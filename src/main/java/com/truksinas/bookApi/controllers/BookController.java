@@ -2,6 +2,7 @@ package com.truksinas.bookApi.controllers;
 
 import com.truksinas.bookApi.dtos.BookDto;
 import com.truksinas.bookApi.responses.ApiResponse;
+import com.truksinas.bookApi.responses.PaginatedApiResponse;
 import com.truksinas.bookApi.services.BookService;
 import com.truksinas.bookApi.utils.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,17 @@ public class BookController {
     }
 
     @GetMapping()
-    public ResponseEntity<String> getBooks() {
-        return new ResponseEntity<>("All books", HttpStatus.OK);
+    public ResponseEntity<PaginatedApiResponse<BookDto>> getBooks(
+            @RequestParam(value = "currentPage", defaultValue = "0", required = false) Integer currentPage,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "author", required = false) String author,
+            @RequestParam(value = "releaseYear", required = false) Integer releaseYear,
+            @RequestParam(value = "rating", required = false) Double rating
+    ) {
+        PaginatedApiResponse<BookDto> response = bookService.getAllBooks(currentPage, pageSize, title, author, releaseYear, rating);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("{id}")
