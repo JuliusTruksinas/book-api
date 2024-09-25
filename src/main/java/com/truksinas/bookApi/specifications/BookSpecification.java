@@ -19,7 +19,7 @@ public class BookSpecification {
                 releaseYear == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("releaseYear"), releaseYear);
     }
 
-    public static Specification<BookEntity> hasRating(Double rating) {
+    public static Specification<BookEntity> hasRating(Integer rating) {
         return (root, query, criteriaBuilder) ->
                 rating == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("rating"), rating);
     }

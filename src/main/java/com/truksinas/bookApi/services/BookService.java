@@ -11,5 +11,5 @@ public interface BookService {
     BookEntity getBookById(int id);
     void deleteBookById(int id);
     BookEntity updateBook(int id, BookDto bookDto);
-    PaginatedApiResponse<BookDto> getAllBooks(Integer currentPage, Integer pageSize, String title, String author, Integer year, Double rating);
+    PaginatedApiResponse<BookDto> getAllBooks(Integer currentPage, Integer pageSize, String title, String author, Integer year, Integer rating);
 }

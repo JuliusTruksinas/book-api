@@ -65,7 +65,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public PaginatedApiResponse<BookDto> getAllBooks(Integer currentPage, Integer pageSize, String title, String author, Integer releaseYear, Double rating) {
+    public PaginatedApiResponse<BookDto> getAllBooks(Integer currentPage, Integer pageSize, String title, String author, Integer releaseYear, Integer rating) {
         PageRequest pageable = PageRequest.of(currentPage, pageSize);
 
         Specification<BookEntity> spec = Specification.where(BookSpecification.hasTitle(title))

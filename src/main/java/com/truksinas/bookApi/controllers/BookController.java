@@ -1,10 +1,12 @@
 package com.truksinas.bookApi.controllers;
 
 import com.truksinas.bookApi.dtos.BookDto;
+import com.truksinas.bookApi.dtos.BookFilterDto;
 import com.truksinas.bookApi.responses.ApiResponse;
 import com.truksinas.bookApi.responses.PaginatedApiResponse;
 import com.truksinas.bookApi.services.BookService;
 import com.truksinas.bookApi.utils.BookMapper;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +26,15 @@ public class BookController {
     }
 
     @GetMapping()
-    public ResponseEntity<PaginatedApiResponse<BookDto>> getBooks(
-            @RequestParam(value = "currentPage", defaultValue = "0", required = false) Integer currentPage,
-            @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-            @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "author", required = false) String author,
-            @RequestParam(value = "releaseYear", required = false) Integer releaseYear,
-            @RequestParam(value = "rating", required = false) Double rating
-    ) {
-        PaginatedApiResponse<BookDto> response = bookService.getAllBooks(currentPage, pageSize, title, author, releaseYear, rating);
+    public ResponseEntity<PaginatedApiResponse<BookDto>> getBooks(@Valid @ModelAttribute BookFilterDto bookFilterDto) {
+        PaginatedApiResponse<BookDto> response = bookService.getAllBooks(
+                bookFilterDto.getCurrentPage(),
+                bookFilterDto.getPageSize(),
+                bookFilterDto.getTitle(),
+                bookFilterDto.getAuthor(),
+                bookFilterDto.getReleaseYear(),
+                bookFilterDto.getRating()
+        );
 
         return ResponseEntity.ok(response);
     }
@@ -46,7 +48,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<BookDto>> createBook(@RequestBody BookDto bookDto) {
+    public ResponseEntity<ApiResponse<BookDto>> createBook(@Valid @RequestBody BookDto bookDto) {
         BookDto createdBookDto = BookMapper.mapToDto(bookService.createBook(bookDto));
         ApiResponse<BookDto> response = new ApiResponse<>(SUCCESS.toString(), createdBookDto);
 
@@ -54,7 +56,7 @@ public class BookController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ApiResponse<BookDto>> updateBook(@PathVariable(value = "id") int id, @RequestBody BookDto bookDto) {
+    public ResponseEntity<ApiResponse<BookDto>> updateBook(@PathVariable(value = "id") int id, @Valid @RequestBody BookDto bookDto) {
         BookDto updatedBookDto = BookMapper.mapToDto(bookService.updateBook(id, bookDto));
         ApiResponse<BookDto> response = new ApiResponse<>(SUCCESS.toString(), updatedBookDto);
 
