@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class BookDto {
-    private int id;
+    private Integer id;
 
     @NotBlank(message = "Title is mandatory")
     @Size(max = 100, message = "Title must be less than 100 characters")
@@ -18,8 +18,11 @@ public class BookDto {
     @NotNull(message = "Release year is mandatory")
     @Min(value = 1500, message = "Release year must be after 1500")
     @Max(value = 2100, message = "Release year must be before 2100")
-    private int releaseYear;
+    private Integer releaseYear;
 
+    @NotNull(message = "Price is mandatory")
     @Positive(message = "Price must be positive")
-    private double price;
+    private Double price;
+
+    private Double rating;
 }

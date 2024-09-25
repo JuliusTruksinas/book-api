@@ -1,6 +1,5 @@
 package com.truksinas.bookApi.controllers;
 
-import com.truksinas.bookApi.dtos.BookDto;
 import com.truksinas.bookApi.dtos.ReviewDto;
 import com.truksinas.bookApi.dtos.ReviewFilterDto;
 import com.truksinas.bookApi.responses.ApiResponse;
@@ -37,12 +36,12 @@ public class ReviewController {
     }
 
     @GetMapping("/books/{bookId}/reviews")
-    public ResponseEntity<String> getBookReviews(@PathVariable(value = "bookId") int bookId) {
+    public ResponseEntity<String> getBookReviews(@PathVariable(value = "bookId") Integer bookId) {
         return new ResponseEntity<>("All reviews for Book with id: " + bookId, HttpStatus.OK);
     }
 
     @GetMapping("/reviews/{id}")
-    public ResponseEntity<ApiResponse<ReviewDto>> getReview(@PathVariable(value = "id") int id) {
+    public ResponseEntity<ApiResponse<ReviewDto>> getReview(@PathVariable(value = "id") Integer id) {
         ReviewDto reviewDto = ReviewMapper.mapToDto(reviewService.getReviewById(id));
         ApiResponse<ReviewDto> response = new ApiResponse<>(SUCCESS.toString(), reviewDto);
 
@@ -50,7 +49,7 @@ public class ReviewController {
     }
 
     @PostMapping("/books/{bookId}/reviews")
-    public ResponseEntity<ApiResponse<ReviewDto>> createReview(@PathVariable(value = "bookId") int bookId, @Valid @RequestBody ReviewDto reviewDto) {
+    public ResponseEntity<ApiResponse<ReviewDto>> createReview(@PathVariable(value = "bookId") Integer bookId, @Valid @RequestBody ReviewDto reviewDto) {
         ReviewDto createdReviewDto = ReviewMapper.mapToDto(reviewService.createReview(bookId, reviewDto));
 
         ApiResponse<ReviewDto> response = new ApiResponse<>(SUCCESS.toString(), createdReviewDto);
@@ -59,7 +58,7 @@ public class ReviewController {
     }
 
     @PutMapping("/reviews/{id}")
-    public ResponseEntity<ApiResponse<ReviewDto>> updateReview(@PathVariable(value = "id") int id, @Valid @RequestBody ReviewDto reviewDto) {
+    public ResponseEntity<ApiResponse<ReviewDto>> updateReview(@PathVariable(value = "id") Integer id, @Valid @RequestBody ReviewDto reviewDto) {
         ReviewDto updatedReviewDto = ReviewMapper.mapToDto(reviewService.updateReview(id, reviewDto));
         ApiResponse<ReviewDto> response = new ApiResponse<>(SUCCESS.toString(), updatedReviewDto);
 
@@ -67,7 +66,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/reviews/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteReview(@PathVariable(value = "id") int id) {
+    public ResponseEntity<ApiResponse<Void>> deleteReview(@PathVariable(value = "id") Integer id) {
         reviewService.deleteReviewById(id);
         ApiResponse<Void> response = new ApiResponse<>(SUCCESS.toString(), null);
 

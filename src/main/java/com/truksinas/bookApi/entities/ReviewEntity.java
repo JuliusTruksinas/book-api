@@ -20,7 +20,7 @@ import java.util.Date;
 public class ReviewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotBlank
     @Column(name = "title", nullable = false)
@@ -33,7 +33,7 @@ public class ReviewEntity {
     @Min(1)
     @Max(5)
     @Column(name = "stars", nullable = false)
-    private int stars;
+    private Integer stars;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")

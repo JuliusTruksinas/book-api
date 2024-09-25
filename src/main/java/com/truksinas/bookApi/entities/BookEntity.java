@@ -22,7 +22,7 @@ import java.util.List;
 public class BookEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotBlank
     @Column(name = "title", nullable = false)
@@ -34,11 +34,14 @@ public class BookEntity {
 
     @Min(0)
     @Column(name = "release_year", nullable = false)
-    private int releaseYear;
+    private Integer releaseYear;
 
     @DecimalMin("0.0")
     @Column(name = "price", nullable = false)
-    private double price;
+    private Double price;
+
+    @Column(name = "rating", nullable = true)
+    private Double rating;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewEntity> reviews = new ArrayList<>();

@@ -4,6 +4,7 @@ import com.truksinas.bookApi.dtos.ReviewDto;
 import com.truksinas.bookApi.entities.BookEntity;
 import com.truksinas.bookApi.entities.ReviewEntity;
 import com.truksinas.bookApi.exceptions.ReviewNotFoundException;
+import com.truksinas.bookApi.repositories.BookRepository;
 import com.truksinas.bookApi.repositories.ReviewRepository;
 import com.truksinas.bookApi.responses.PaginatedApiResponse;
 import com.truksinas.bookApi.services.BookService;
@@ -24,16 +25,18 @@ import static com.truksinas.bookApi.responses.ApiResponseStatus.SUCCESS;
 public class ReviewServiceImpl implements ReviewService {
 
     private ReviewRepository reviewRepository;
+    private final BookRepository bookRepository;
     private BookService bookService;
 
     @Autowired
-    public ReviewServiceImpl(ReviewRepository reviewRepository, BookService bookService) {
+    public ReviewServiceImpl(ReviewRepository reviewRepository, BookRepository bookRepository, BookService bookService) {
         this.reviewRepository = reviewRepository;
+        this.bookRepository = bookRepository;
         this.bookService = bookService;
     }
 
     @Override
-    public ReviewEntity createReview(int bookId, ReviewDto reviewDto) {
+    public ReviewEntity createReview(Integer bookId, ReviewDto reviewDto) {
         BookEntity book = bookService.getBookById(bookId);
 
         ReviewEntity review = ReviewMapper.mapToEntity(reviewDto);
@@ -42,25 +45,27 @@ public class ReviewServiceImpl implements ReviewService {
 
         ReviewEntity savedReview = reviewRepository.save(review);
 
+        recalculateBookRating(bookId);
+
         return savedReview;
     }
 
     @Override
-    public ReviewEntity getReviewById(int id) {
+    public ReviewEntity getReviewById(Integer id) {
         ReviewEntity review = reviewRepository.findById(id).orElseThrow(() -> new ReviewNotFoundException(id));
 
         return review;
     }
 
     @Override
-    public void deleteReviewById(int id) {
+    public void deleteReviewById(Integer id) {
         ReviewEntity review = getReviewById(id);
 
         reviewRepository.delete(review);
     }
 
     @Override
-    public ReviewEntity updateReview(int id, ReviewDto reviewDto) {
+    public ReviewEntity updateReview(Integer id, ReviewDto reviewDto) {
         ReviewEntity review = getReviewById(id);
 
         review.setTitle(reviewDto.getTitle());
@@ -89,5 +94,12 @@ public class ReviewServiceImpl implements ReviewService {
                 .totalItems(reviewPage.getTotalElements())
                 .build();
 
+    }
+
+    private void recalculateBookRating(Integer bookId) {
+        Double newRating = reviewRepository.findRatingByBookId(bookId);
+        newRating = Math.round(newRating * 100.0) / 100.0;
+
+        bookRepository.updateBookRating(bookId, newRating);
     }
 }
