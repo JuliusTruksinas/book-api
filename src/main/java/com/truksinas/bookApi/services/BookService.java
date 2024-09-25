@@ -4,8 +4,6 @@ import com.truksinas.bookApi.dtos.BookDto;
 import com.truksinas.bookApi.entities.BookEntity;
 import com.truksinas.bookApi.responses.PaginatedApiResponse;
 
-import java.util.List;
-
 public interface BookService {
     BookEntity createBook(BookDto bookDto);
     BookEntity getBookById(int id);

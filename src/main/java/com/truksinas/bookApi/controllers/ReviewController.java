@@ -1,10 +1,18 @@
 package com.truksinas.bookApi.controllers;
 
+import com.truksinas.bookApi.dtos.BookDto;
+import com.truksinas.bookApi.dtos.ReviewDto;
+import com.truksinas.bookApi.responses.ApiResponse;
 import com.truksinas.bookApi.services.ReviewService;
+import com.truksinas.bookApi.utils.BookMapper;
+import com.truksinas.bookApi.utils.ReviewMapper;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.truksinas.bookApi.responses.ApiResponseStatus.*;
 
 @RestController
 public class ReviewController {
@@ -27,8 +35,12 @@ public class ReviewController {
     }
 
     @PostMapping("/books/{bookId}/reviews")
-    public ResponseEntity<String> createReview(@PathVariable(value = "bookId") int bookId) {
-        return new ResponseEntity<>("Created a review for a book with id: " + bookId, HttpStatus.CREATED);
+    public ResponseEntity<ApiResponse<ReviewDto>> createReview(@PathVariable(value = "bookId") int bookId, @Valid @RequestBody ReviewDto reviewDto) {
+        ReviewDto createdReviewDto = ReviewMapper.mapToDto(reviewService.createReview(bookId, reviewDto));
+
+        ApiResponse<ReviewDto> response = new ApiResponse<>(SUCCESS.toString(), createdReviewDto);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/reviews/{id}")
