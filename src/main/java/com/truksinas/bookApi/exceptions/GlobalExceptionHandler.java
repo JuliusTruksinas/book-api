@@ -17,7 +17,7 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(BookNotFoundException.class)
+    @ExceptionHandler({BookNotFoundException.class, ReviewNotFoundException.class})
     public ResponseEntity<FailApiResponse> handleNotFoundExceptions(RuntimeException exception, WebRequest request) {
         Map<String, String> badRequestErrors = new HashMap<>();
         badRequestErrors.put("id", exception.getMessage());
