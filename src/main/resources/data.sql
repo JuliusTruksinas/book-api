@@ -1,0 +1,43 @@
+-- prefilling book table with data
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('The Great Gatsby', 'F. Scott Fitzgerald', 1925, 10.99, 4.5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('1984', 'George Orwell', 1949, 8.99, 4.5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('To Kill a Mockingbird', 'Harper Lee', 1960, 7.99, 4.5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('Pride and Prejudice', 'Jane Austen', 1813, 6.99, 3, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('The Catcher in the Rye', 'J.D. Salinger', 1951, 9.99, 3, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('The Hobbit', 'J.R.R. Tolkien', 1937, 12.99, 3, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('Fahrenheit 451', 'Ray Bradbury', 1953, 11.99, 5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('Moby-Dick', 'Herman Melville', 1851, 14.99, 5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('War and Peace', 'Leo Tolstoy', 1869, 13.99, 5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('The Odyssey', 'Homer', 1800, 15.99, 2.1, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('Crime and Punishment', 'Fyodor Dostoevsky', 1866, 9.49, 5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('The Brothers Karamazov', 'Fyodor Dostoevsky', 1880, 10.49, 4.9, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('Brave New World', 'Aldous Huxley', 1932, 8.49, 4.9, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('Jane Eyre', 'Charlotte Brontë', 1847, 7.49, 1.5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('Wuthering Heights', 'Emily Brontë', 1847, 6.49, 1.5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('The Divine Comedy', 'Dante Alighieri', 1820, 16.99, 2.5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('The Iliad', 'Homer', 1750, 15.49, 3.5, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('Les Misérables', 'Victor Hugo', 1862, 12.49, 3.1, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('Anna Karenina', 'Leo Tolstoy', 1877, 11.49, 2.9, now(), now());
+INSERT INTO book (title, author, release_year, price, rating, created_at, updated_at) VALUES ('The Count of Monte Cristo', 'Alexandre Dumas', 1844, 13.49, 2.2, now(), now());
+
+-- prefilling review table with data
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Great Read', 'I thoroughly enjoyed this book.', 5, 1, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Not Bad', 'It was an okay read.', 3, 1, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Amazing!', 'One of the best books I have ever read.', 5, 3, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Could be better', 'The story was a bit slow.', 2, 2, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Loved it', 'Fantastic book, highly recommend.', 4, 2, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Disappointing', 'I expected more from this book.', 2, 1, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Good Read', 'Enjoyed the plot and characters.', 4, 3, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Excellent', 'A masterpiece.', 5, 3, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Boring', 'Could not finish it.', 1, 4, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Interesting', 'Kept me engaged throughout.', 4, 10, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Fantastic', 'A must-read for everyone.', 5, 10, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Mediocre', 'Nothing special.', 3, 10, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Loved the characters', 'Great character development.', 4, 13, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Too long', 'The book was too lengthy.', 2, 14, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Great story', 'Loved the storyline.', 5, 15, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Not for me', 'Did not enjoy it.', 1, 1, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Well written', 'Beautifully written.', 4, 17, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Just okay', 'It was just okay.', 3, 18, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Highly recommend', 'Everyone should read this.', 5, 19, now(), now());
+INSERT INTO review (title, content, stars, book_id, created_at, updated_at) VALUES ('Waste of time', 'Did not like it at all.', 1, 19, now(), now());
