@@ -10,4 +10,5 @@ public interface ReviewService {
     void deleteReviewById(Integer id);
     ReviewEntity updateReview(Integer id, ReviewDto reviewDto);
     PaginatedApiResponse<ReviewDto> getAllReviews(Integer currentPage, Integer pageSize, Integer stars);
+    PaginatedApiResponse<ReviewDto> getAllBookReviews(Integer bookId, Integer currentPage, Integer pageSize, Integer stars);
 }

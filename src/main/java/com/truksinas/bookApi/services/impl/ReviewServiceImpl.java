@@ -96,6 +96,26 @@ public class ReviewServiceImpl implements ReviewService {
 
     }
 
+    @Override
+    public PaginatedApiResponse<ReviewDto> getAllBookReviews(Integer bookId, Integer currentPage, Integer pageSize, Integer stars) {PageRequest pageable = PageRequest.of(currentPage - 1, pageSize);
+        BookEntity book = bookService.getBookById(bookId);
+
+        Specification<ReviewEntity> spec = Specification.where(ReviewSpecification.hasStars(stars))
+                .and(ReviewSpecification.hasBookId(bookId));
+
+        Page<ReviewEntity> reviewPage = reviewRepository.findAll(spec, pageable);
+
+        List<ReviewDto> data = reviewPage.getContent().stream().map(ReviewMapper::mapToDto).toList();
+
+        return PaginatedApiResponse.<ReviewDto>builder()
+                .status(SUCCESS.toString())
+                .data(data)
+                .currentPage(currentPage)
+                .totalPages(reviewPage.getTotalPages())
+                .totalItems(reviewPage.getTotalElements())
+                .build();
+    }
+
     private void recalculateBookRating(Integer bookId) {
         Double newRating = reviewRepository.findRatingByBookId(bookId);
         newRating = Math.round(newRating * 100.0) / 100.0;

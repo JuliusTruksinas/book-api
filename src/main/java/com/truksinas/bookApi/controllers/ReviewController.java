@@ -36,8 +36,15 @@ public class ReviewController {
     }
 
     @GetMapping("/books/{bookId}/reviews")
-    public ResponseEntity<String> getBookReviews(@PathVariable(value = "bookId") Integer bookId) {
-        return new ResponseEntity<>("All reviews for Book with id: " + bookId, HttpStatus.OK);
+    public ResponseEntity<PaginatedApiResponse<ReviewDto>> getBookReviews(@PathVariable(value = "bookId") Integer bookId, @Valid @ModelAttribute ReviewFilterDto reviewFilterDto) {
+        PaginatedApiResponse<ReviewDto> response = reviewService.getAllBookReviews(
+                bookId,
+                reviewFilterDto.getCurrentPage(),
+                reviewFilterDto.getPageSize(),
+                reviewFilterDto.getStars()
+        );
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/reviews/{id}")

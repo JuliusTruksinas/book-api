@@ -8,4 +8,9 @@ public class ReviewSpecification {
         return (root, query, criteriaBuilder) ->
                 stars == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("stars"), stars);
     }
+
+    public static Specification<ReviewEntity> hasBookId(Integer bookId) {
+        return (root, query, criteriaBuilder) ->
+                bookId == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("book").get("id"), bookId);
+    }
 }
