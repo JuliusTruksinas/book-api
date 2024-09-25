@@ -49,4 +49,17 @@ public class ReviewServiceImpl implements ReviewService {
 
         reviewRepository.delete(review);
     }
+
+    @Override
+    public ReviewEntity updateReview(int id, ReviewDto reviewDto) {
+        ReviewEntity review = getReviewById(id);
+
+        review.setTitle(reviewDto.getTitle());
+        review.setContent(reviewDto.getContent());
+        review.setStars(reviewDto.getStars());
+
+        ReviewEntity updatedReview = reviewRepository.save(review);
+
+        return updatedReview;
+    }
 }
