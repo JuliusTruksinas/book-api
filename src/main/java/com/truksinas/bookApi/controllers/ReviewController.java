@@ -45,8 +45,11 @@ public class ReviewController {
     }
 
     @PutMapping("/reviews/{id}")
-    public ResponseEntity<String> updateReview(@PathVariable(value = "id") int id) {
-        return new ResponseEntity<>("Review with id: " + id + " successfully updated", HttpStatus.CREATED);
+    public ResponseEntity<ApiResponse<ReviewDto>> updateReview(@PathVariable(value = "id") int id, @Valid @RequestBody ReviewDto reviewDto) {
+        ReviewDto updatedReviewDto = ReviewMapper.mapToDto(reviewService.updateReview(id, reviewDto));
+        ApiResponse<ReviewDto> response = new ApiResponse<>(SUCCESS.toString(), updatedReviewDto);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/reviews/{id}")
