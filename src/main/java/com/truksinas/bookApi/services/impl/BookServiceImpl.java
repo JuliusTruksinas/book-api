@@ -18,8 +18,6 @@ import org.springframework.stereotype.Service;
 import static com.truksinas.bookApi.responses.ApiResponseStatus.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 @Service
 public class BookServiceImpl implements BookService {
