@@ -75,13 +75,12 @@ public class BookServiceImpl implements BookService {
 
         Page<BookEntity> booksPage = bookRepository.findAll(spec, pageable);
 
-        List<BookDto> data = booksPage.getContent().stream().map(BookMapper::mapToDto).collect(Collectors.toList());
+        List<BookDto> data = booksPage.getContent().stream().map(BookMapper::mapToDto).toList();
 
         return PaginatedApiResponse.<BookDto>builder()
                 .status(SUCCESS.toString())
                 .data(data)
-                .currentPage(booksPage.getNumber())
-                .pageSize(booksPage.getSize())
+                .currentPage(currentPage)
                 .totalPages(booksPage.getTotalPages())
                 .totalItems(booksPage.getTotalElements())
                 .build();
