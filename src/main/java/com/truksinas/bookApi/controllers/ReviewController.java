@@ -50,8 +50,12 @@ public class ReviewController {
     }
 
     @DeleteMapping("/reviews/{id}")
-    public ResponseEntity<Void> deleteReview(@PathVariable(value = "id") int id) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<ApiResponse<Void>> deleteReview(@PathVariable(value = "id") int id) {
+        reviewService.deleteReviewById(id);
+        ApiResponse<Void> response = new ApiResponse<>(SUCCESS.toString(), null);
+
+        return ResponseEntity.ok(response);
+
     }
 
 }
