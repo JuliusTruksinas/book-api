@@ -42,4 +42,11 @@ public class ReviewServiceImpl implements ReviewService {
 
         return review;
     }
+
+    @Override
+    public void deleteReviewById(int id) {
+        ReviewEntity review = getReviewById(id);
+
+        reviewRepository.delete(review);
+    }
 }
