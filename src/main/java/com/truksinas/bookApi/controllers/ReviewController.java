@@ -1,10 +1,8 @@
 package com.truksinas.bookApi.controllers;
 
-import com.truksinas.bookApi.dtos.BookDto;
 import com.truksinas.bookApi.dtos.ReviewDto;
 import com.truksinas.bookApi.responses.ApiResponse;
 import com.truksinas.bookApi.services.ReviewService;
-import com.truksinas.bookApi.utils.BookMapper;
 import com.truksinas.bookApi.utils.ReviewMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +28,11 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews/{id}")
-    public ResponseEntity<String> getReview(@PathVariable(value = "id") int id) {
-        return new ResponseEntity<>("Review with id: " + id, HttpStatus.OK);
+    public ResponseEntity<ApiResponse<ReviewDto>> getReview(@PathVariable(value = "id") int id) {
+        ReviewDto reviewDto = ReviewMapper.mapToDto(reviewService.getReviewById(id));
+        ApiResponse<ReviewDto> response = new ApiResponse<>(SUCCESS.toString(), reviewDto);
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/books/{bookId}/reviews")

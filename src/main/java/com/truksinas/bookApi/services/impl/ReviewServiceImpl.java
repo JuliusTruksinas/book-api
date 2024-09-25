@@ -3,8 +3,7 @@ package com.truksinas.bookApi.services.impl;
 import com.truksinas.bookApi.dtos.ReviewDto;
 import com.truksinas.bookApi.entities.BookEntity;
 import com.truksinas.bookApi.entities.ReviewEntity;
-import com.truksinas.bookApi.exceptions.BookNotFoundException;
-import com.truksinas.bookApi.repositories.BookRepository;
+import com.truksinas.bookApi.exceptions.ReviewNotFoundException;
 import com.truksinas.bookApi.repositories.ReviewRepository;
 import com.truksinas.bookApi.services.BookService;
 import com.truksinas.bookApi.services.ReviewService;
@@ -35,5 +34,12 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewEntity savedReview = reviewRepository.save(review);
 
         return savedReview;
+    }
+
+    @Override
+    public ReviewEntity getReviewById(int id) {
+        ReviewEntity review = reviewRepository.findById(id).orElseThrow(() -> new ReviewNotFoundException(id));
+
+        return review;
     }
 }
