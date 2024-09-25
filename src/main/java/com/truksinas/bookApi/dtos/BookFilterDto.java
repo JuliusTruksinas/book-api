@@ -7,8 +7,8 @@ import lombok.Data;
 
 @Data
 public class BookFilterDto {
-    @Min(0)
-    private Integer currentPage = 0;
+    @Min(1)
+    private Integer currentPage = 1;
 
     @Min(1)
     @Max(100)
