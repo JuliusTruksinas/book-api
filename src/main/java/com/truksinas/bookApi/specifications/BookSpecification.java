@@ -6,12 +6,12 @@ import org.springframework.data.jpa.domain.Specification;
 public class BookSpecification {
     public static Specification<BookEntity> hasTitle(String title) {
         return (root, query, criteriaBuilder) ->
-                title == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("title"), title);
+                title == null ? criteriaBuilder.conjunction() : criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + title.toLowerCase() + "%");
     }
 
     public static Specification<BookEntity> hasAuthor(String author) {
         return (root, query, criteriaBuilder) ->
-                author == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("author"), author);
+                author == null ? criteriaBuilder.conjunction() : criteriaBuilder.like(criteriaBuilder.lower(root.get("author")), "%" + author.toLowerCase() + "%");
     }
 
     public static Specification<BookEntity> hasReleaseYear(Integer releaseYear) {
