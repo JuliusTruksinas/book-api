@@ -1,9 +1,11 @@
 package com.truksinas.bookApi.dtos;
 
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class BookDto {
     private Integer id;
 

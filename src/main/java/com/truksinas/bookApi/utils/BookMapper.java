@@ -5,15 +5,14 @@ import com.truksinas.bookApi.entities.BookEntity;
 
 public class BookMapper {
     public static BookDto mapToDto(BookEntity book) {
-        BookDto bookDto = new BookDto();
-        bookDto.setId(book.getId());
-        bookDto.setTitle(book.getTitle());
-        bookDto.setAuthor(book.getAuthor());
-        bookDto.setReleaseYear(book.getReleaseYear());
-        bookDto.setPrice(book.getPrice());
-        bookDto.setRating(book.getRating());
-
-        return bookDto;
+        return new BookDto(
+                book.getId(),
+                book.getTitle(),
+                book.getAuthor(),
+                book.getReleaseYear(),
+                book.getPrice(),
+                book.getRating()
+        );
     }
 
     public static BookEntity mapToEntity(BookDto bookDto) {
@@ -22,6 +21,7 @@ public class BookMapper {
         book.setAuthor(bookDto.getAuthor());
         book.setReleaseYear(bookDto.getReleaseYear());
         book.setPrice(bookDto.getPrice());
+        book.setRating(bookDto.getRating());
 
         return book;
     }
