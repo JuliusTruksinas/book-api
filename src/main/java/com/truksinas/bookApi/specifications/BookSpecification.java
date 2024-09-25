@@ -19,8 +19,13 @@ public class BookSpecification {
                 releaseYear == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("releaseYear"), releaseYear);
     }
 
-    public static Specification<BookEntity> hasRating(Integer rating) {
+    public static Specification<BookEntity> hasHigherOrEqualThanRating(Double rating) {
         return (root, query, criteriaBuilder) ->
-                rating == null ? criteriaBuilder.conjunction() : criteriaBuilder.equal(root.get("rating"), rating);
+                rating == null ? criteriaBuilder.conjunction() : criteriaBuilder.greaterThanOrEqualTo(root.get("rating"), rating);
+    }
+
+    public static Specification<BookEntity> hasLowerOrEqualThanRating(Double rating) {
+        return (root, query, criteriaBuilder) ->
+                rating == null ? criteriaBuilder.conjunction() : criteriaBuilder.lessThanOrEqualTo(root.get("rating"), rating);
     }
 }

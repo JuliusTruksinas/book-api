@@ -14,7 +14,7 @@ import java.util.List;
 public class PaginatedApiResponse<T> {
     private String status;
     private List<T> data;
-    private int currentPage;
-    private int totalPages;
+    private Integer currentPage;
+    private Integer totalPages;
     private long totalItems;
 }

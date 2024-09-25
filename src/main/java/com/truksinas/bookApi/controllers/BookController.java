@@ -33,14 +33,15 @@ public class BookController {
                 bookFilterDto.getTitle(),
                 bookFilterDto.getAuthor(),
                 bookFilterDto.getReleaseYear(),
-                bookFilterDto.getRating()
+                bookFilterDto.getHigherOrEqualThanRating(),
+                bookFilterDto.getLowerOrEqualThanRating()
         );
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ApiResponse<BookDto>> getBook(@PathVariable(value = "id") int id) {
+    public ResponseEntity<ApiResponse<BookDto>> getBook(@PathVariable(value = "id") Integer id) {
         BookDto bookDto = BookMapper.mapToDto(bookService.getBookById(id));
         ApiResponse<BookDto> response = new ApiResponse<>(SUCCESS.toString(), bookDto);
 
@@ -56,7 +57,7 @@ public class BookController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ApiResponse<BookDto>> updateBook(@PathVariable(value = "id") int id, @Valid @RequestBody BookDto bookDto) {
+    public ResponseEntity<ApiResponse<BookDto>> updateBook(@PathVariable(value = "id") Integer id, @Valid @RequestBody BookDto bookDto) {
         BookDto updatedBookDto = BookMapper.mapToDto(bookService.updateBook(id, bookDto));
         ApiResponse<BookDto> response = new ApiResponse<>(SUCCESS.toString(), updatedBookDto);
 
@@ -64,7 +65,7 @@ public class BookController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteBook(@PathVariable(value = "id") int id) {
+    public ResponseEntity<ApiResponse<Void>> deleteBook(@PathVariable(value = "id") Integer id) {
         bookService.deleteBookById(id);
         ApiResponse<Void> response = new ApiResponse<>(SUCCESS.toString(), null);
 

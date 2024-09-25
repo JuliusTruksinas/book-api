@@ -1,14 +1,11 @@
 package com.truksinas.bookApi.dtos;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
 public class ReviewDto {
-    private int id;
+    private Integer id;
 
     @NotBlank(message = "Title is mandatory")
     @Size(max = 100, message = "Title must be less than 100 characters")
@@ -18,7 +15,8 @@ public class ReviewDto {
     @Size(max = 1000, message = "Content must be less than 1000 characters")
     private String content;
 
+    @NotNull(message = "Stars are mandatory")
     @Min(value = 1, message = "Stars must be at least 1")
     @Max(value = 5, message = "Stars must be at most 5")
-    private int stars;
+    private Integer stars;
 }

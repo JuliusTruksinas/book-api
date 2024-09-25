@@ -1,8 +1,6 @@
 package com.truksinas.bookApi.dtos;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
@@ -24,7 +22,11 @@ public class BookFilterDto {
     @Max(2100)
     private Integer releaseYear;
 
-    @Min(0)
-    @Max(5)
-    private Integer rating;
+    @DecimalMin("0.0")
+    @DecimalMax("5.0")
+    private Double higherOrEqualThanRating;
+
+    @DecimalMin("0.0")
+    @DecimalMax("5.0")
+    private Double lowerOrEqualThanRating;
 }
