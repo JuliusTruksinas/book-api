@@ -15,7 +15,6 @@ public class PaginatedApiResponse<T> {
     private String status;
     private List<T> data;
     private int currentPage;
-    private int pageSize;
     private int totalPages;
     private long totalItems;
 }

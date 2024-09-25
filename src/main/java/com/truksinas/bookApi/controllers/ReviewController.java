@@ -1,7 +1,10 @@
 package com.truksinas.bookApi.controllers;
 
+import com.truksinas.bookApi.dtos.BookDto;
 import com.truksinas.bookApi.dtos.ReviewDto;
+import com.truksinas.bookApi.dtos.ReviewFilterDto;
 import com.truksinas.bookApi.responses.ApiResponse;
+import com.truksinas.bookApi.responses.PaginatedApiResponse;
 import com.truksinas.bookApi.services.ReviewService;
 import com.truksinas.bookApi.utils.ReviewMapper;
 import jakarta.validation.Valid;
@@ -20,6 +23,17 @@ public class ReviewController {
     @Autowired
     public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
+    }
+
+    @GetMapping("/reviews")
+    public ResponseEntity<PaginatedApiResponse<ReviewDto>> getAllReviews(@Valid @ModelAttribute ReviewFilterDto reviewFilterDto) {
+        PaginatedApiResponse<ReviewDto> response = reviewService.getAllReviews(
+                reviewFilterDto.getCurrentPage(),
+                reviewFilterDto.getPageSize(),
+                reviewFilterDto.getStars()
+        );
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/books/{bookId}/reviews")
